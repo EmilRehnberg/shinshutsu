@@ -13,11 +13,8 @@ var (
 	teas = map[string][]int{
 		"nisemono-cha":        []int{2, 1, 3},
 		"long-jing-cha (80C)": []int{20, 35, 70, 120},
-		"chun-mei-cha (95C)":  []int{15, 25, 35, 50, 80, 110, 140},
 		"chun-mei-cha (80C)":  []int{3 * 60, 3*60 + 20, 3*60 + 40, 4 * 60},
 		"zhu-cha (95C)":       []int{10, 25, 40, 50, 70, 90},
-		// "four-seasons (80C)":  []int{25, 40, 50, 60, 70, 80, 90, 100},
-		// "four-seasons (70C)":  []int{120, 150, 180, 210, 240},
 	}
 	p    = fmt.Print
 	puts = fmt.Println
