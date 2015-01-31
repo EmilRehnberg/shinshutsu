@@ -6,6 +6,7 @@ import (
 	"github.com/emilrehnberg/shinshutsu/alarmclock"
 	"os"
 	"strconv"
+	"strings"
 )
 
 var (
@@ -67,16 +68,16 @@ func queryForTeaNumber(teas map[string][]int) (teaNumber int) {
 	return
 }
 
-var teaQueryResponse = func() rune {
-	return readUserRuneInput()
+var teaQueryResponse = func() string {
+	return readUserString()
 }
 
 func userQuits() bool {
 	p("[c]ontinue/(s)top: ")
 	switch continueResponse() {
-	case 'c', '\n':
+	case "c", "":
 		return false
-	case 's':
+	case "s":
 		return true
 	default:
 		puts("please enter a valid option")
@@ -84,8 +85,8 @@ func userQuits() bool {
 	}
 }
 
-var continueResponse = func() rune {
-	return readUserRuneInput()
+var continueResponse = func() string {
+	return strings.TrimSpace(readUserString())
 }
 
 func getSteepNumber() int {
@@ -93,16 +94,16 @@ func getSteepNumber() int {
 	return parseInt(steepNumber())
 }
 
-func steepNumber() rune {
+func steepNumber() string {
 	requestedSteepNumber := steepNumberQueryResponse()
-	if requestedSteepNumber == '\n' {
-		return '1'
+	if requestedSteepNumber == "\n" {
+		return "1"
 	}
 	return requestedSteepNumber
 }
 
-var steepNumberQueryResponse = func() rune {
-	return readUserRuneInput()
+var steepNumberQueryResponse = func() string {
+	return readUserString()
 }
 
 func impartUserOnMissingNextSteep() {
@@ -110,10 +111,10 @@ func impartUserOnMissingNextSteep() {
 	return
 }
 
-func readUserRuneInput() (readRune rune) {
-	readRune, _, err := reader().ReadRune()
+func readUserString() string {
+	readString, err := reader().ReadString('\n')
 	handleError(err)
-	return
+	return readString
 }
 
 func abort(msg string) {
@@ -143,8 +144,8 @@ func reader() *bufio.Reader {
 	return bufio.NewReader(os.Stdin)
 }
 
-func parseInt(unparsed rune) (parsed int) {
-	parsed, err := strconv.Atoi(string(unparsed))
+func parseInt(unparsed string) (parsed int) {
+	parsed, err := strconv.Atoi(strings.TrimSpace(unparsed))
 	handleError(err)
 	return
 }

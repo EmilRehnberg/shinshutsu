@@ -15,7 +15,7 @@ var (
 var _ = Describe("brewci package", func() {
 	Describe("#parseInt", func() {
 		It("returns a 3 when given '3'", func() {
-			Expect(parseInt('3')).To(Equal(3))
+			Expect(parseInt("3")).To(Equal(3))
 		})
 	})
 
@@ -29,18 +29,18 @@ var _ = Describe("brewci package", func() {
 
 		Context("given the first steep time (out of multiple), and then stopping", func() {
 			BeforeEach(func() {
-				teaQueryResponse = func() rune { return '0' }
-				steepNumberQueryResponse = func() rune { return '1' }
+				teaQueryResponse = func() string { return "0" }
+				steepNumberQueryResponse = func() string { return "1" }
 
 				runTimer = func(seconds int) {}
-				continueResponse = func() rune { return 's' }
+				continueResponse = func() string { return "s" }
 			})
 
 			It("queries for which tea to pick once", func() {
 				var teaQueryNumber int
-				teaQueryResponse = func() rune {
+				teaQueryResponse = func() string {
 					teaQueryNumber += 1
-					return '0'
+					return "0"
 				}
 
 				Execute(teas)
@@ -49,9 +49,9 @@ var _ = Describe("brewci package", func() {
 
 			It("queries for steep number once", func() {
 				var steepNumberQueryNumber int
-				steepNumberQueryResponse = func() rune {
+				steepNumberQueryResponse = func() string {
 					steepNumberQueryNumber += 1
-					return '1'
+					return "1"
 				}
 
 				Execute(teas)
@@ -60,9 +60,9 @@ var _ = Describe("brewci package", func() {
 
 			It("queries for continue once", func() {
 				var continutationQueryNumber int
-				continueResponse = func() rune {
+				continueResponse = func() string {
 					continutationQueryNumber += 1
-					return 's'
+					return "s"
 				}
 
 				Execute(teas)
@@ -92,11 +92,11 @@ var _ = Describe("brewci package", func() {
 
 		Context("given the first steep time (out of two), and then continuing", func() {
 			BeforeEach(func() {
-				teaQueryResponse = func() rune { return '0' }
-				steepNumberQueryResponse = func() rune { return '1' }
+				teaQueryResponse = func() string { return "0" }
+				steepNumberQueryResponse = func() string { return "1" }
 
 				runTimer = func(seconds int) {}
-				continueResponse = func() rune { return 'c' }
+				continueResponse = func() string { return "c" }
 
 				teas = map[string][]int{
 					"nisemono-cha": []int{2, 3},
@@ -125,9 +125,9 @@ var _ = Describe("brewci package", func() {
 
 			It("queries for which tea to pick once", func() {
 				var teaQueryNumber int
-				teaQueryResponse = func() rune {
+				teaQueryResponse = func() string {
 					teaQueryNumber += 1
-					return '0'
+					return "0"
 				}
 
 				Execute(teas)
@@ -136,9 +136,9 @@ var _ = Describe("brewci package", func() {
 
 			It("queries for steep number once", func() {
 				var steepNumberQueryNumber int
-				steepNumberQueryResponse = func() rune {
+				steepNumberQueryResponse = func() string {
 					steepNumberQueryNumber += 1
-					return '1'
+					return "1"
 				}
 
 				Execute(teas)
@@ -147,9 +147,9 @@ var _ = Describe("brewci package", func() {
 
 			It("queries for continue once", func() {
 				var continutationQueryNumber int
-				continueResponse = func() rune {
+				continueResponse = func() string {
 					continutationQueryNumber += 1
-					return 'c'
+					return "c"
 				}
 
 				Execute(teas)
@@ -162,18 +162,18 @@ var _ = Describe("brewci package", func() {
 				teas = map[string][]int{
 					"nisemono-cha": []int{2, 3, 4},
 				}
-				teaQueryResponse = func() rune { return '0' }
-				steepNumberQueryResponse = func() rune { return '2' }
+				teaQueryResponse = func() string { return "0" }
+				steepNumberQueryResponse = func() string { return "2" }
 
 				runTimer = func(seconds int) {}
-				continueResponse = func() rune { return 'c' }
+				continueResponse = func() string { return "c" }
 			})
 
 			It("queries for steep number once", func() {
 				var steepNumberQueryNumber int
-				steepNumberQueryResponse = func() rune {
+				steepNumberQueryResponse = func() string {
 					steepNumberQueryNumber += 1
-					return '1'
+					return "1"
 				}
 
 				Execute(teas)
@@ -182,9 +182,9 @@ var _ = Describe("brewci package", func() {
 
 			It("queries for continue once", func() {
 				var continutationQueryNumber int
-				continueResponse = func() rune {
+				continueResponse = func() string {
 					continutationQueryNumber += 1
-					return 'c'
+					return "c"
 				}
 
 				Execute(teas)
@@ -204,18 +204,18 @@ var _ = Describe("brewci package", func() {
 
 		Context("given the NO steep time, and then stopping", func() {
 			BeforeEach(func() {
-				teaQueryResponse = func() rune { return '0' }
-				steepNumberQueryResponse = func() rune { return '\n' }
+				teaQueryResponse = func() string { return "0" }
+				steepNumberQueryResponse = func() string { return "\n" }
 
 				runTimer = func(seconds int) {}
-				continueResponse = func() rune { return 's' }
+				continueResponse = func() string { return "s" }
 			})
 
 			It("queries for steep number once", func() {
 				var steepNumberQueryNumber int
-				steepNumberQueryResponse = func() rune {
+				steepNumberQueryResponse = func() string {
 					steepNumberQueryNumber += 1
-					return '\n'
+					return "\n"
 				}
 
 				Execute(teas)
@@ -247,9 +247,9 @@ var _ = Describe("brewci package", func() {
 	Describe("#userQuits", func() {
 		It("calls #continueResponse", func() {
 			var continueResponseWasCalled bool
-			continueResponse = func() rune {
+			continueResponse = func() string {
 				continueResponseWasCalled = true
-				return 'c'
+				return "c"
 			}
 			userQuits()
 
@@ -258,8 +258,8 @@ var _ = Describe("brewci package", func() {
 
 		Context("when the user returns a 'c'", func() {
 			It("returns false", func() {
-				continueResponse = func() rune {
-					return 'c'
+				continueResponse = func() string {
+					return "c"
 				}
 				toQuit := userQuits()
 
@@ -269,8 +269,8 @@ var _ = Describe("brewci package", func() {
 
 		Context("when the user returns nothing", func() {
 			It("returns false", func() {
-				continueResponse = func() rune {
-					return '\n'
+				continueResponse = func() string {
+					return ""
 				}
 				toQuit := userQuits()
 
@@ -280,8 +280,8 @@ var _ = Describe("brewci package", func() {
 
 		Context("when the user returns a 's'", func() {
 			It("returns true", func() {
-				continueResponse = func() rune {
-					return 's'
+				continueResponse = func() string {
+					return "s"
 				}
 				toQuit := userQuits()
 				Expect(toQuit).To(Equal(true))
@@ -296,11 +296,11 @@ var _ = Describe("brewci package", func() {
 
 			BeforeEach(func() {
 				continueResponseCallTimes = 0
-				continueResponse = func() (reply rune) {
+				continueResponse = func() (reply string) {
 					if continueResponseCallTimes > 0 {
-						reply = 's'
+						reply = "s"
 					} else {
-						reply = 'a'
+						reply = "a"
 					}
 					continueResponseCallTimes += 1
 					return
