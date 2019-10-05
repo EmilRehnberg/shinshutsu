@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/emilrehnberg/shinshutsu/alarmclock"
+	"github.com/EmilRehnberg/shinshutsu/alarmclock"
 	"os"
 	"strconv"
 )

@@ -3,7 +3,7 @@ package brewci
 import (
 	"bufio"
 	"fmt"
-	"github.com/emilrehnberg/shinshutsu/alarmclock"
+	"github.com/EmilRehnberg/shinshutsu/alarmclock"
 	"os"
 	"strconv"
 	"strings"
