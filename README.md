@@ -8,6 +8,12 @@ I couldn't figure out how to do this less laboriously.
 
 This assumes `$GOPATH` and `$GOBIN` to be setup properly.
 
+For `Go` version `1.16` and above.
+
+```sh
+go env -w GO111MODULE=off
+```
+
 Dependencies
 
 ```sh
